@@ -55,7 +55,7 @@ export async function scrapeURLWithFetch(
     };
   } else {
     try {
-      logger.info("测试2", meta);
+      meta.logger.info("测试2", meta);
       const x = await Promise.race([
         undici.fetch(meta.url, {
           dispatcher: await makeSecureDispatcher(meta.url),
