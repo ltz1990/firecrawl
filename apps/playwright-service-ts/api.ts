@@ -50,8 +50,8 @@ interface UrlModel {
   check_selector?: string;
 }
 
-let browser: Browser;
-let context: BrowserContext;
+let browser: Browser | undefined;
+let context: BrowserContext | undefined;
 
 const initializeBrowser = async (httpProxy: string | undefined) => {
   browser = await chromium.launch({
@@ -96,6 +96,10 @@ const createContext = async (httpProxy: string | undefined) => {
     contextOptions.proxy = {
       server: httpProxy,
     };
+  }
+
+  if (!browser) {
+    throw new Error('浏览器未初始化');
   }
 
   context = await browser.newContext(contextOptions);
@@ -231,6 +235,10 @@ app.post("/scrape", async (req: Request, res: Response) => {
   console.log("req.body.httpProxy");
   if (!browser || !context) {
     await initializeBrowser(req.body.httpProxy);
+  }
+
+  if (!context) {
+    throw new Error("Browser context is not initialized");
   }
 
   const page = await context.newPage();
