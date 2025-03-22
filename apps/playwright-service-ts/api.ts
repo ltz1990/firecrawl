@@ -117,6 +117,8 @@ const createContext = async (httpProxy: string | undefined) => {
     }
     return route.continue();
   });
+
+  console.log("创建新的context");
 };
 
 const shutdownBrowser = async () => {
