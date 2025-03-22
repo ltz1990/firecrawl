@@ -71,6 +71,7 @@ const initializeBrowser = async () => {
 };
 
 const createContext = async (httpProxy: string | undefined) => {
+  console.log("开始创建新的context");
   const userAgent = new UserAgent().toString();
   const viewport = { width: 1280, height: 800 };
 
@@ -118,7 +119,7 @@ const createContext = async (httpProxy: string | undefined) => {
     return route.continue();
   });
 
-  console.log("创建新的context");
+  console.log("创建新的context完成", context);
 };
 
 const shutdownBrowser = async () => {
@@ -282,6 +283,7 @@ app.post("/scrape", async (req: Request, res: Response) => {
   }
 
   await page.close();
+  await context.close();
 
   res.json({
     content: result.content,
