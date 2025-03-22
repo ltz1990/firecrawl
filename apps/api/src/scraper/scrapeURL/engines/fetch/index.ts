@@ -9,6 +9,7 @@ import {
 } from "../utils/safeFetch";
 import { MockState, saveMock } from "../../lib/mock";
 import { TextDecoder } from "util";
+import { logger } from "../../../../lib/logger";
 
 export async function scrapeURLWithFetch(
   meta: Meta,
@@ -54,6 +55,7 @@ export async function scrapeURLWithFetch(
     };
   } else {
     try {
+      logger.info("测试2", meta);
       const x = await Promise.race([
         undici.fetch(meta.url, {
           dispatcher: await makeSecureDispatcher(meta.url),

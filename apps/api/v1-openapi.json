@@ -1169,6 +1169,10 @@
                         "description": "Only return the main content of the page excluding headers, navs, footers, etc.",
                         "default": true
                       },
+                      "httpProxy": {
+                        "type": "string",
+                        "description": "The HTTP proxy to use for the crawl. Format: username:password@ip:port"
+                      },
                       "removeBase64Images": {
                         "type": "boolean",
                         "description": "Remove base64 encoded images from the output",
