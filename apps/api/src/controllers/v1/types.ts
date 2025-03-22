@@ -177,6 +177,7 @@ const baseScrapeOptions = z
     includeTags: z.string().array().optional(),
     excludeTags: z.string().array().optional(),
     onlyMainContent: z.boolean().default(true),
+    httpProxy: z.string().optional(),
     timeout: z.number().int().positive().finite().safe().optional(),
     waitFor: z
       .number()
