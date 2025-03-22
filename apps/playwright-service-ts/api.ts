@@ -121,7 +121,7 @@ const createContext = async (httpProxy: string | undefined) => {
     return route.continue();
   });
 
-  console.log("创建新的context完成", context);
+  console.log("创建新的context完成");
 };
 
 const shutdownBrowser = async () => {
@@ -225,8 +225,6 @@ app.post("/scrape", async (req: Request, res: Response) => {
   }
 
   console.log("req.body.httpProxy111");
-  console.log("browser", browser);
-  console.log("context", context);
   console.log("req.body.httpProxy");
   if (!browser || !context) {
     await initializeBrowser();
