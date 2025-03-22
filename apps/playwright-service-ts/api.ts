@@ -67,6 +67,8 @@ const initializeBrowser = async () => {
       "--disable-gpu",
     ],
   });
+
+  console.log("开始创建浏览器");
   await createContext(undefined);
 };
 
@@ -220,6 +222,8 @@ app.post("/scrape", async (req: Request, res: Response) => {
     );
   }
 
+  console.log("browser", browser);
+  console.log("context", context);
   if (!browser || !context) {
     await initializeBrowser();
   }
