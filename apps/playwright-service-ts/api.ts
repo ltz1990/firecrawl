@@ -160,6 +160,7 @@ app.post('/scrape', async (req: Request, res: Response) => {
   console.log(`Timeout: ${timeout}`);
   console.log(`Headers: ${headers ? JSON.stringify(headers) : 'None'}`);
   console.log(`Check Selector: ${check_selector ? check_selector : 'None'}`);
+  console.log(`Body: ${JSON.stringify(req.body)}`);
   console.log(`==================================================`);
 
   if (!url) {
