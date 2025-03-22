@@ -122,6 +122,7 @@ const createContext = async (httpProxy: string | undefined) => {
   });
 
   console.log("创建新的context完成");
+  return context;
 };
 
 const shutdownBrowser = async () => {
@@ -234,7 +235,7 @@ app.post("/scrape", async (req: Request, res: Response) => {
     console.log(`开始关闭context`);
     await context.close();
     console.log(`开始创建新的context`);
-    await createContext(req.body.httpProxy);
+    context = await createContext(req.body.httpProxy);
   }
 
   const page = await context.newPage();
