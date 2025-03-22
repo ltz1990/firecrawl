@@ -32,7 +32,7 @@ export async function scrapeController(
 
   req.body = scrapeRequestSchema.parse(req.body);
 
-  logger.info("测试");
+  logger.info("测试1");
   let earlyReturn = false;
 
   const origin = req.body.origin;
