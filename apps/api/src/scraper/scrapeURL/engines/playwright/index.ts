@@ -9,7 +9,7 @@ export async function scrapeURLWithPlaywright(
   timeToRun: number | undefined,
 ): Promise<EngineScrapeResult> {
   const timeout = (timeToRun ?? 300000) + meta.options.waitFor;
-
+  meta.logger.info("测试555"+ JSON.stringify(meta));
   const response = await Promise.race([
     await robustFetch({
       url: process.env.PLAYWRIGHT_MICROSERVICE_URL!,
@@ -20,6 +20,7 @@ export async function scrapeURLWithPlaywright(
         url: meta.url,
         wait_after_load: meta.options.waitFor,
         timeout,
+        httpProxy: meta.options.httpProxy,
         headers: meta.options.headers,
       },
       method: "POST",
