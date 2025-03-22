@@ -53,7 +53,7 @@ interface UrlModel {
 let browser: Browser;
 let context: BrowserContext;
 
-const initializeBrowser = async () => {
+const initializeBrowser = async (httpProxy: string | undefined) => {
   browser = await chromium.launch({
     headless: true,
     args: [
@@ -69,7 +69,7 @@ const initializeBrowser = async () => {
   });
 
   console.log("开始创建浏览器");
-  await createContext(undefined);
+  await createContext(httpProxy);
 };
 
 const createContext = async (httpProxy: string | undefined) => {
@@ -128,9 +128,11 @@ const createContext = async (httpProxy: string | undefined) => {
 const shutdownBrowser = async () => {
   if (context) {
     await context.close();
+    context = null;
   }
   if (browser) {
     await browser.close();
+    browser = null;
   }
 };
 
@@ -228,14 +230,7 @@ app.post("/scrape", async (req: Request, res: Response) => {
   console.log("req.body.httpProxy111");
   console.log("req.body.httpProxy");
   if (!browser || !context) {
-    await initializeBrowser();
-  }
-
-  if(context) {
-    console.log(`开始关闭context`);
-    await context.close();
-    console.log(`开始创建新的context`);
-    context = await createContext(req.body.httpProxy);
+    await initializeBrowser(req.body.httpProxy);
   }
 
   const page = await context.newPage();
@@ -273,6 +268,7 @@ app.post("/scrape", async (req: Request, res: Response) => {
       );
     } catch (finalError) {
       await page.close();
+      await shutdownBrowser();
       return res
         .status(500)
         .json({ error: "An error occurred while fetching the page." });
@@ -300,9 +296,7 @@ app.post("/scrape", async (req: Request, res: Response) => {
 });
 
 app.listen(port, () => {
-  initializeBrowser().then(() => {
-    console.log(`Server is running on port ${port}`);
-  });
+  console.log(`Server is running on port ${port}`);
 });
 
 process.on("SIGINT", () => {
