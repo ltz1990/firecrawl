@@ -50,8 +50,8 @@ interface UrlModel {
   check_selector?: string;
 }
 
-let browser: Browser | null = null;
-let context: BrowserContext | null = null;
+let browser: Browser;
+let context: BrowserContext;
 
 const initializeBrowser = async (httpProxy: string | undefined) => {
   browser = await chromium.launch({
@@ -128,11 +128,11 @@ const createContext = async (httpProxy: string | undefined) => {
 const shutdownBrowser = async () => {
   if (context) {
     await context.close();
-    context = null;
+    context = undefined;
   }
   if (browser) {
     await browser.close();
-    browser = null;
+    browser = undefined;
   }
 };
 
@@ -179,7 +179,7 @@ const scrapePage = async (
     );
     if (
       ct &&
-      (typeof ct[1] === 'string' && (ct[1].includes("application/json") || ct[1].includes("text/plain")))
+      (ct[1].includes("application/json") || ct[1].includes("text/plain"))
     ) {
       content = (await response.body()).toString("utf8"); // TODO: determine real encoding
     }
