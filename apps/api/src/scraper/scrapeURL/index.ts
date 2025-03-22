@@ -215,6 +215,7 @@ function safeguardCircularError<T>(error: T): T {
 
 async function scrapeURLLoop(meta: Meta): Promise<ScrapeUrlResponse> {
   meta.logger.info(`Scraping URL ${JSON.stringify(meta.url)}...`);
+  meta.logger.info("测试3", meta);
 
   // TODO: handle sitemap data, see WebScraper/index.ts:280
   // TODO: ScrapeEvents
