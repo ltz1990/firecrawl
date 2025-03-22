@@ -215,6 +215,7 @@ app.post("/scrape", async (req: Request, res: Response) => {
     return res.status(400).json({ error: "Invalid URL" });
   }
 
+  console.log("req.body.httpProxy331311");
   console.log(req.body.httpProxy);
   console.log("req.body.httpProxy");
   if (!PROXY_SERVER && !req.body.httpProxy) {
