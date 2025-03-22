@@ -216,14 +216,17 @@ app.post("/scrape", async (req: Request, res: Response) => {
   }
 
   console.log(req.body.httpProxy);
+  console.log("req.body.httpProxy");
   if (!PROXY_SERVER && !req.body.httpProxy) {
     console.warn(
       "⚠️ WARNING: No proxy server provided. Your IP address may be blocked."
     );
   }
 
+  console.log("req.body.httpProxy111");
   console.log("browser", browser);
   console.log("context", context);
+  console.log("req.body.httpProxy");
   if (!browser || !context) {
     await initializeBrowser();
   }
