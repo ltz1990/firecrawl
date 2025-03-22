@@ -224,7 +224,9 @@ app.post("/scrape", async (req: Request, res: Response) => {
   }
 
   if(context) {
+    console.log(`开始关闭context`);
     await context.close();
+    console.log(`开始创建新的context`);
     await createContext(req.body.httpProxy);
   }
 
